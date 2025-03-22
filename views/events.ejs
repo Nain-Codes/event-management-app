@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Event Management</h1>
+        <form action="/events" method="POST">
+            <input type="text" name="title" placeholder="Title" required>
+            <textarea name="description" placeholder="Description" required></textarea>
+            <input type="date" name="date" required>
+            <input type="time" name="time" required>
+            <input type="text" name="location" placeholder="Location" required>
+            <button type="submit">Add Event</button>
+        </form>
+        <ul>
+            <% events.forEach(event => { %>
+                <li>
+                    <strong><%= event.title %></strong>
+                    <p><%= event.description %></p>
+                    <p>Date: <%= event.date %> | Time: <%= event.time %></p>
+                    <p>Location: <%= event.location %></p>
+                    <div class="actions">
+                        <form action="/events/<%= event.id %>/update" method="POST">
+                            <input type="text" name="title" placeholder="New Title">
+                            <textarea name="description" placeholder="New Description"></textarea>
+                            <input type="date" name="date">
+                            <input type="time" name="time">
+                            <input type="text" name="location" placeholder="New Location">
+                            <button type="submit">Update</button>
+                        </form>
+                        <form action="/events/<%= event.id %>/delete" method="POST">
+                            <button type="submit" class="delete">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+        <div class="logout">
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+</body>
+</html>
